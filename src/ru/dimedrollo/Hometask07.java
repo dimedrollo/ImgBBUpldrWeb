@@ -1,7 +1,10 @@
+package ru.dimedrollo;
+
+
 import java.util.*;
 
 
-public class Hometask7 {
+public class Hometask07 {
 
     /**
      * Функция читает ввод с консоли и считает повторения элементов
