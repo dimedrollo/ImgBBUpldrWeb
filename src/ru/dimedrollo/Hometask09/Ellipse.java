@@ -1,8 +1,7 @@
 package ru.dimedrollo.Hometask09;
 
-import ru.dimedrollo.Hometask10.Motion;
 
-public class Ellipse extends Figure{
+public class Ellipse extends Figure {
     public Ellipse(double x, double y) {
         super(x, y);
     }

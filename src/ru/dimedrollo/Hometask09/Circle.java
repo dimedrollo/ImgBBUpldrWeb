@@ -1,8 +1,7 @@
 package ru.dimedrollo.Hometask09;
 
-import ru.dimedrollo.Hometask10.Motion;
 
-public class Circle extends Ellipse implements Motion{
+public class Circle extends Ellipse {
 
     public Circle(double x) {
         super(x, x);
@@ -14,9 +13,5 @@ public class Circle extends Ellipse implements Motion{
         return x * 3.14;
     }
 
-    @Override
-    public void move(int[] moveTo) {
-        setX(moveTo[0]);
-        setY(moveTo[0]);
-    }
+
 }
