@@ -1,7 +1,10 @@
+package ru.dimedrollo;
+
+
 import java.util.*;
 
 
-public class Hometask8 {
+public class Hometask08 {
 
     //Создаем класс Person реализующий интерфейс Comparable
     public static class Person implements Comparable<Person> {
