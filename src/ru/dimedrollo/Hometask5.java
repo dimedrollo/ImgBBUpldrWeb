@@ -22,7 +22,7 @@ class Hometask5 {
                 }
                 a = scanner.nextInt();
             }
-            System.out.println(minDigit);
+            System.out.println(minDigit==10 ? 0 : minDigit);
         }
     }
 }
