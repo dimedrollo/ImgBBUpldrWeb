@@ -3,14 +3,17 @@ package ru.dimedrollo.Hometask09;
 
 public class Circle extends Ellipse {
 
-    public Circle(double x) {
+    private int diametr;
+
+    public Circle(int x) {
         super(x, x);
+        this.diametr = x;
     }
 
 
     @Override
     public double getPerimeter() {
-        return x * 3.14;
+        return diametr * 3.14;
     }
 
 
