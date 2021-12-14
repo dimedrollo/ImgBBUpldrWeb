@@ -1,20 +1,26 @@
 package ru.dimedrollo.Hometask10;
 
-public class Circle extends Ellipse implements Motion{
 
-    public Circle(double x) {
+import java.awt.*;
+
+public class Circle extends Ellipse implements Motion {
+
+    private int diametr;
+
+    public Circle(int x) {
         super(x, x);
+        this.diametr = x;
     }
 
 
     @Override
     public double getPerimeter() {
-        return x * 3.14;
+        return diametr * 3.14;
     }
 
+
     @Override
-    public void move(int[] moveTo) {
-        setX(moveTo[0]);
-        setY(moveTo[0]);
+    public void move(Point p) {
+        setCenter(p);
     }
 }

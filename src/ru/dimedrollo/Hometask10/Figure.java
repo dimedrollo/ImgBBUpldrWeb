@@ -1,32 +1,28 @@
 package ru.dimedrollo.Hometask10;
 
-abstract public class Figure implements Motion{
-    protected double x;
-    protected double y;
 
-    public Figure(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-    public void move(int[] moveTo){};
+import java.awt.*;
 
-    public double getX() {
-        return x;
+public abstract class Figure {
+
+    protected Point center;
+
+    public Point getCenter() {
+        return center;
     }
 
-    public void setX(double x) {
-        this.x = x;
+    public void setCenter(Point center) {
+        this.center = center;
     }
 
-    public double getY() {
-        return y;
+    protected int width;
+    protected int height;
+
+    public Figure(int x, int y) {
+        this.center = new Point(x, y);
     }
 
-    public void setY(double y) {
-        this.y = y;
+
+    public abstract double getPerimeter();
     }
 
-    public double getPerimeter() {
-        return 0;
-    }
-}

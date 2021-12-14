@@ -1,13 +1,19 @@
 package ru.dimedrollo.Hometask10;
 
-public  class Rectangle extends Figure {
+public class Rectangle extends Figure {
 
-    public Rectangle(double x, double y) {
+    private int width;
+    private int height;
+
+    public Rectangle(int x, int y) {
         super(x, y);
+        this.width = x * 2;
+        this.height = y * 2;
     }
 
     @Override
     public double getPerimeter() {
-        return Math.sqrt(x * x + y * y) + x + y;
+        return 2 * (width + height);
     }
 }
+

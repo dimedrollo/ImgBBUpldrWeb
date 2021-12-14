@@ -1,5 +1,9 @@
 package ru.dimedrollo.Hometask10;
 
-public  interface Motion {
-    void move(int[] moveTo);
+import java.awt.*;
+
+public interface Motion {
+    void move(Point p);
+
+    Point getCenter();
 }

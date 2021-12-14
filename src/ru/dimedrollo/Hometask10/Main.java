@@ -1,21 +1,24 @@
 package ru.dimedrollo.Hometask10;
 
-import java.util.*;
-
+import java.awt.*;
+import java.util.ArrayList;
 
 public class Main {
 
+
     public static void main(String[] args) {
-        Figure[] figures  = new Figure[4];
-        figures[0] = new Ellipse(7,5);
-        figures[1] = new Circle(44);
-        figures[2] = new Ellipse(11,2);
-        figures[3] = new Circle(-4);
-        int[]a ={1,-1};
-        for (Figure f : figures) {
-            f.move(a);
-            System.out.println("x = "+ f.getX() + "; y = " +f.getY());
+
+        ArrayList<Motion> list = new ArrayList<>();
+
+        list.add(new Circle(6));
+        list.add(new Square(6));
+
+        for (Motion m : list) {
+            System.out.println("Координаты центра до перемещения" + m.getClass().getSimpleName() + " = " + m.getCenter().x + ", " + m.getCenter().y);
+            m.move(new Point(7, 10));
+            System.out.println("Координаты центра после перемещения" + m.getClass().getSimpleName() + " = " + m.getCenter().x + ", " + m.getCenter().y);
         }
     }
 }
+
 
