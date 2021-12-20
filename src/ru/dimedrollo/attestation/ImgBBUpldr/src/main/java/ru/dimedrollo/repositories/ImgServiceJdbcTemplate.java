@@ -14,6 +14,8 @@ import ru.dimedrollo.models.response.OptionalResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Component
@@ -22,15 +24,21 @@ public class ImgServiceJdbcTemplate implements ImgService {
     private static final String API_URL = "https://api.imgbb.com/1/upload";
     private static final String USER_AGENT = "imgbbUpldr";
     private static final int TIMEOUT = 50000;
-    private static final String SQL_INSERT = "insert into imgbbDB(IMG_64, URL, TIMER) values (?,?,?)";
-    private static final String SQL_DELETE = "DELETE  FROM imgbbDB WHERE (TIMER) => '%s'";
+    private static final String SQL_INSERT = "insert into imgbbDB(UUID, IMG_64, URL, TIMER) values (?,?,?,?)";
+    private static String SQL_DELETE = "SELECT FROM imgbbDB WHERE (TIMER) > ";
     private static final String SQL_SELECT = "SELECT * FROM imgbbDB";
-
     private JdbcTemplate jdbcTemplate;
 
     public static String makeFormattedDate(Date date) {
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy.MM.dd HH:mm");
         return formatDate.format(date);
+    }
+
+    public static LocalDateTime makeFormattedDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+
+        return dateTime;
     }
 
     private static final RowMapper<Img> imgRowMapper = (row, rowNumber) -> {
@@ -50,13 +58,20 @@ public class ImgServiceJdbcTemplate implements ImgService {
 
     @Override
     public List<Img> findAll() {
-        String s = makeFormattedDate(new Date());
-  //  jdbcTemplate.update(SQL_DELETE, s);
-        return jdbcTemplate.query(SQL_SELECT, imgRowMapper);
+        List<Img> list = jdbcTemplate.query(SQL_SELECT, imgRowMapper);
+        List<Img> newList = new ArrayList<>();
+        for (Img img : list) {
+            if (makeFormattedDate(img.getMTimer()).isAfter(LocalDateTime.now())) {
+                newList.add(img);
+            }
+        }
+        return newList;
     }
 
-    public void responseBody( @RequestParam UploadParameters uploadParam, Img image){
-        try{
+    // TODO: DB rewriting without old data
+
+    public void responseBody(@RequestParam UploadParameters uploadParam, Img image) {
+        try {
             Connection.Response response = Jsoup.connect(API_URL)
                     .ignoreContentType(true)
                     .ignoreHttpErrors(true)
@@ -75,6 +90,6 @@ public class ImgServiceJdbcTemplate implements ImgService {
 
     @Override
     public void save(Img img) {
-        jdbcTemplate.update(SQL_INSERT, img.getBase64(), img.getMUrl(), img.getMTimer());
+        jdbcTemplate.update(SQL_INSERT, null, img.getBase64(), img.getMUrl(), img.getMTimer());
     }
 }

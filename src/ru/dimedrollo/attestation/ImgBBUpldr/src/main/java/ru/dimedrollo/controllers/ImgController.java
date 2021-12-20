@@ -49,7 +49,7 @@ Img image;
     
     @GetMapping("/images")
     public String getImagesPage(Model model){
-     List<Img> images = imgService.findAll();
+          List<Img> images = imgService.findAll();
      model.addAttribute("images", images);
      return "images";
     }
