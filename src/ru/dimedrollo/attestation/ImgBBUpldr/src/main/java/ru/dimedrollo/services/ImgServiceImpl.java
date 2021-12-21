@@ -1,4 +1,4 @@
-package ru.dimedrollo.repositories;
+package ru.dimedrollo.services;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -19,23 +19,28 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Component
-public class ImgServiceJdbcTemplate implements ImgService {
+public class ImgServiceImpl implements ImgService {
 
     private static final String API_URL = "https://api.imgbb.com/1/upload";
     private static final String USER_AGENT = "imgbbUpldr";
     private static final int TIMEOUT = 50000;
     private static final String SQL_INSERT = "insert into imgbbDB(UUID, IMG_64, URL, TIMER) values (?,?,?,?)";
-    private static String SQL_DELETE = "SELECT FROM imgbbDB WHERE (TIMER) > ";
+    private static String SQL_DELETE = "DELETE FROM imgbbDB";
     private static final String SQL_SELECT = "SELECT * FROM imgbbDB";
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    public ImgServiceImpl(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
     public static String makeFormattedDate(Date date) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         return formatDate.format(date);
     }
 
     public static LocalDateTime makeFormattedDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
 
         return dateTime;
@@ -51,18 +56,16 @@ public class ImgServiceJdbcTemplate implements ImgService {
 
     };
 
-    @Autowired
-    public ImgServiceJdbcTemplate(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     @Override
     public List<Img> findAll() {
         List<Img> list = jdbcTemplate.query(SQL_SELECT, imgRowMapper);
+        jdbcTemplate.update(SQL_DELETE);
         List<Img> newList = new ArrayList<>();
         for (Img img : list) {
             if (makeFormattedDate(img.getMTimer()).isAfter(LocalDateTime.now())) {
                 newList.add(img);
+                save(img);
             }
         }
         return newList;
