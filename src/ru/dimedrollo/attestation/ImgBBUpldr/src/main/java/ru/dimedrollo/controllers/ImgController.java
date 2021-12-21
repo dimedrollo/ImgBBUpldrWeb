@@ -32,7 +32,7 @@ public class ImgController {
 Img image;
 
  @PostMapping("/addimg")
-    public String addImg(@RequestParam("file") @NotNull MultipartFile file, @RequestParam(value = "timer", defaultValue = "1440") Long timer) throws IOException {
+    public String addImg(@RequestParam("file") MultipartFile file, @RequestParam(value = "timer", defaultValue = "1440") Long timer) throws IOException {
      String string64 = Base64Utils.encodeToString(file.getBytes());
      image = new Img(string64);
      UploadParameters.Builder builder = new UploadParameters.Builder();
@@ -40,7 +40,7 @@ Img image;
      UploadParameters uploadParam = builder.imageBase64(string64).expirationTime(eX).build();
      image.setMTimer(ImgServiceImpl.makeFormattedDate(new Date(timer*60000+System.currentTimeMillis())));
      imgService.responseBody(uploadParam, image);
-     return "redirect:/imgadding.html";
+     return "redirect:/images";
     }
 
     
