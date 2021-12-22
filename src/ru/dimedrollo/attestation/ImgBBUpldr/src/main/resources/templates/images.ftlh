@@ -27,7 +27,7 @@
     <#list images as image>
         <tr>
             <td>${image.getId()}</td>
-            <td><img alt="My image" src="${image.getBase64()}"/></td>
+            <td><img alt="My image" src="${image.getThumbnail()}"/></td>
             <td>${image.getMUrl()}</td>
             <td>${image.getMTimer()}</td>
         </tr>

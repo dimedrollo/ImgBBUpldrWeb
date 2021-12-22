@@ -5,21 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Img {
     private String id;
-    private String base64;
+    private String thumbnail;
     private String mUrl;
     private String mTimer; // сюда сохраняем время удаления
 
 
-    public Img(String base64) {
-        this.base64 = base64;
+    public Img(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
 

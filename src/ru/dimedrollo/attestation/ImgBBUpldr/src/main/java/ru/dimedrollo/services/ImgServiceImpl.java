@@ -84,7 +84,7 @@ public class ImgServiceImpl implements ImgService {
                     .userAgent(USER_AGENT)
                     .execute();
             image.setMUrl(OptionalResponse.of(response).get().getResponseData().getViewerUrl());
-            image.setBase64(OptionalResponse.of(response).get().getResponseData().getThumbnail().getUrl());
+            image.setThumbnail(OptionalResponse.of(response).get().getResponseData().getThumbnail().getUrl());
             save(image);
         } catch (IOException ex) {
             throw new RuntimeException("I/O exception was catched while try to upload image!", ex);
@@ -93,6 +93,6 @@ public class ImgServiceImpl implements ImgService {
 
     @Override
     public void save(Img img) {
-        jdbcTemplate.update(SQL_INSERT, null, img.getBase64(), img.getMUrl(), img.getMTimer());
+        jdbcTemplate.update(SQL_INSERT, null, img.getThumbnail(), img.getMUrl(), img.getMTimer());
     }
 }
