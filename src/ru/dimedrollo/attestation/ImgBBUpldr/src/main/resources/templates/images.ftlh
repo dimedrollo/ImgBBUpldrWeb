@@ -13,7 +13,7 @@
 <form enctype="multipart/form-data" method="post" action="/addimg">
     <p>
         <input type="file" name="file" accept="image/png,image/jpeg" required>
-        <input type="number" name="timer" title="enter an expiration time" placeholder="Expiration time by minutes">
+        <input type="number" name="timer" title="min 1 - max 259200 (6 month)" placeholder="Expiration time by minutes">
         <input type="submit" value="Отправить"></p>
 </form>
 <table>
@@ -28,8 +28,8 @@
         <tr>
             <td>${image.getId()}</td>
             <td><img alt="My image" src="${image.getThumbnail()}"/></td>
-            <td>${image.getMUrl()}</td>
-            <td>${image.getMTimer()}</td>
+            <td><a href="${image.getUrl()}"/>${image.getUrl()}</td>
+            <td>${image.getTimer()}</td>
         </tr>
     </#list>
 </table>
