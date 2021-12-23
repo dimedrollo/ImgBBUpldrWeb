@@ -1,24 +1,27 @@
 package ru.dimedrollo.repositories;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.dimedrollo.models.Img;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@RequiredArgsConstructor
+@Repository
 public class ImgRepositoryImpl implements ImgRepository {
+
     private static final String SQL_INSERT = "insert into imgbbDB(UUID, IMG_64, URL, TIMER) values (?,?,?,?)";
     private static String SQL_DELETE = "DELETE FROM imgbbDB";
     private static final String SQL_SELECT = "SELECT * FROM imgbbDB";
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     /**
      * Put uploaded image to DB

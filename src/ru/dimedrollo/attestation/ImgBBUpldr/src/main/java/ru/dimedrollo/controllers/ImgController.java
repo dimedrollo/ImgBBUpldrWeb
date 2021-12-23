@@ -20,8 +20,7 @@ import java.util.List;
 @Controller
 public class ImgController {
 
-    @Autowired
-    private ImgServiceImpl imgService;
+    private final ImgServiceImpl imgService;
 
     @Autowired
     public ImgController(ImgServiceImpl imgService) {
@@ -37,7 +36,7 @@ public class ImgController {
         UploadParameters.Builder builder = new UploadParameters.Builder();
         ExpirationTime eX = ExpirationTime.fromLong(60);
         UploadParameters uploadParam = builder.imageBase64(string64).expirationTime(eX).build();
-        image.setTimer(image.makeFormattedDate(new Date(timer * 60000 + System.currentTimeMillis())));
+        image.makeFormattedDate(new Date(timer * 60000 + System.currentTimeMillis()));
         imgService.responseBody(uploadParam, image);
         return "redirect:/images";
     }

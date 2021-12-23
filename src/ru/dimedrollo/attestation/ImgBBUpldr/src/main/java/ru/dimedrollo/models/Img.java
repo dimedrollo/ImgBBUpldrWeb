@@ -18,7 +18,7 @@ public class Img {
     private String id;
     private String thumbnail;
     private String url;
-    private String timer; // сюда сохраняем время удаления
+    private String timer;
 
     /**
      * Convert date to nice view
@@ -26,9 +26,9 @@ public class Img {
      * @param date
      * @return
      */
-    public String makeFormattedDate(Date date) {
+    public void makeFormattedDate(Date date) {
         SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-        return formatDate.format(date);
+        timer = formatDate.format(date);
     }
 
     /**
