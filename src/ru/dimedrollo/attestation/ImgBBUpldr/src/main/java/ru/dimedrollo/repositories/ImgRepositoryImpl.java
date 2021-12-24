@@ -17,9 +17,7 @@ import java.util.List;
 @Repository
 public class ImgRepositoryImpl implements ImgRepository {
 
-    private static final String SQL_INSERT = "insert into imgbbDB(UUID, IMG_64, URL, TIMER) values (?,?,?,?)";
-    private static String SQL_DELETE = "DELETE FROM imgbbDB";
-    private static final String SQL_SELECT = "SELECT * FROM imgbbDB";
+
 
     private final JdbcTemplate jdbcTemplate;
 

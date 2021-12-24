@@ -13,7 +13,7 @@
 <form enctype="multipart/form-data" modelAttribute="upload" method="post" action="/addimg">
     <p>
             <input type="file" name="file" accept="image/png,image/jpeg" required>
-        <input type="number" name="timer" title="min 1 minute - max 6 month "  placeholder="Autodelete in minutes" min="1" max="60">
+        <input type="number" name="timer" title="min 1 minute - max 6 month "  placeholder="Autodelete in minutes" min="1" max="1000">
         <select name="unit"  >
             <option>MINUTES</option>
             <option>HOUR</option>

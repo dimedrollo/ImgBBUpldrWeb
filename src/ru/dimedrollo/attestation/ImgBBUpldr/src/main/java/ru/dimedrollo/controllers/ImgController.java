@@ -27,7 +27,6 @@ public class ImgController {
 
     @PostMapping("/addimg")
     public String addImg(UploadForm form) throws IOException {
-
         imgService.makeRequest(form.getFile(), form.convertTimeByUnits());
         return "redirect:/images";
     }
