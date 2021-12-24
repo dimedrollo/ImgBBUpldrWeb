@@ -7,17 +7,17 @@ package ru.dimedrollo.models;
 public class ExpirationTime {
 
     /**
-     * Determined by site API, represents minimal time value (in seconds).
+     * Determined by site API, represents minimal time value (in minutes).
      * <p>
      * Value is <b>{@value}</b>.
      */
     public static final long MIN_VALUE = 1;
     /**
-     * Determined by site API, represents maximal time value (in seconds).
+     * Determined by site API, represents maximal time value (in minutes).
      * <p>
      * Value is <b>{@value}</b>.
      */
-    public static final long MAX_VALUE = 259200;
+    public static final long MAX_VALUE = 1814400;
 
     private final long time;
 
@@ -49,16 +49,16 @@ public class ExpirationTime {
     /**
      * Creates new {@link ExpirationTime} instance using time value from a long.
      *
-     * @param timeInMinutes time value as long.
+     * @param timeInHours time value as long.
      * @return The new expiration time instance.
      * @throws IllegalArgumentException when specified time value isn't in the allowed range.
      * @see ExpirationTime#MIN_VALUE
      * @see ExpirationTime#MAX_VALUE
      */
-    public static ExpirationTime fromLong(long timeInMinutes) {
-        if (timeInMinutes < MIN_VALUE || timeInMinutes > MAX_VALUE)
+    public static ExpirationTime fromLong(Long timeInHours) {
+        if (timeInHours < MIN_VALUE || timeInHours > MAX_VALUE)
             throw new IllegalArgumentException("The time parameter must be between " + MIN_VALUE + " and " + MAX_VALUE + "!");
-        return new ExpirationTime(timeInMinutes *60);
+        return new ExpirationTime((long) (timeInHours * 360));
     }
 
     /**

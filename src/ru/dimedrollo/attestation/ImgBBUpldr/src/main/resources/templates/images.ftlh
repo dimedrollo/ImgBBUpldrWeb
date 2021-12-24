@@ -10,10 +10,10 @@
 </head>
 <body>
 <h1>Choose a picture (accept only .jpg and .png files )</h1>
-<form enctype="multipart/form-data" method="post" action="/addimg">
+<form enctype="multipart/form-data" modelAttribute="uploadedFile" method="post" action="/addimg">
     <p>
-        <input type="file" name="file" accept="image/png,image/jpeg" required>
-        <input type="number" name="timer" title="min 1 - max 259200 (6 month)" placeholder="Expiration time by minutes">
+            <input type="file" name="file" accept="image/png,image/jpeg" required>
+        <input type="number" name="timer" title="min 1 - max 1814400 (6 month) &#013 1 day - 1440 minutes &#013 1 week - 10080 minutes &#013 1 day - 1440 minutes &#013 1 week - 10080 minutes &#013 1 month - 302400 minutes"  placeholder="Autodelete in minutes" min="1" max="259200">
         <input type="submit" value="Отправить"></p>
 </form>
 <table>

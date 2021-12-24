@@ -1,12 +1,13 @@
 package ru.dimedrollo.models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Getter
+@Data
 @NoArgsConstructor
 public class UploadParameters {
 
