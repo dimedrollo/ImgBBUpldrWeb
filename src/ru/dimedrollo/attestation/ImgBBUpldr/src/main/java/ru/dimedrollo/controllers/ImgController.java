@@ -5,13 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import ru.dimedrollo.forms.UploadForm;
 import ru.dimedrollo.models.Img;
 import ru.dimedrollo.services.ImgServiceImpl;
 
 import java.io.IOException;
 import java.util.List;
+
 
 @Controller
 public class ImgController {
@@ -26,8 +26,9 @@ public class ImgController {
 
 
     @PostMapping("/addimg")
-    public String addImg(@RequestParam("file") MultipartFile file, @RequestParam(value = "timer", defaultValue = "24") Long timer) throws IOException {
-        imgService.makeRequest(file, timer);
+    public String addImg(UploadForm form) throws IOException {
+
+        imgService.makeRequest(form.getFile(), form.convertTimeByUnits());
         return "redirect:/images";
     }
 
