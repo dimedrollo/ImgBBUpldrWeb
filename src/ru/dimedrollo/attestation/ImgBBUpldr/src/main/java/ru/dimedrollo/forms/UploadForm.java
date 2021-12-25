@@ -13,6 +13,9 @@ public class UploadForm {
     private String unit;
 
     public Long convertTimeByUnits() {
+        if (timer == null || timer == 0){
+            setTimer(1l);
+        }
         switch (unit) {
             case "HOUR":
                 setTimer(timer * 60);
