@@ -1,5 +1,6 @@
 package ru.dimedrollo.services;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import ru.dimedrollo.forms.UploadForm;
 import ru.dimedrollo.models.ExpirationTime;
 import ru.dimedrollo.models.Img;
 import ru.dimedrollo.models.UploadParameters;
@@ -21,11 +23,11 @@ import java.util.Date;
 @Service
 public class ImgServiceImpl implements ImgService {
 
+    @Getter
     private final ImgRepositoryImpl imgRepository;
 
 
-    // TODO: DB rewriting without old data
-
+    @Override
     public void responseBody(@RequestParam UploadParameters uploadParam, Img image) {
         try {
             Connection.Response response = Jsoup.connect(API_URL)
@@ -44,10 +46,12 @@ public class ImgServiceImpl implements ImgService {
         }
     }
 
-    public ImgRepository getImgRepository() {
-        return imgRepository;
-    }
-
+    /**
+     * create UploadParametrs, and  new Img() from UploadForm and send it to responseBody()
+     * @param file from UploadForm
+     * @param timer from UploadForm.convertTimeByUnits()
+     * @throws IOException
+     */
     public void makeRequest(MultipartFile file, Long timer) throws IOException {
         String string64 = Base64Utils.encodeToString(file.getBytes());
         Img image = new Img();

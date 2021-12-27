@@ -21,7 +21,7 @@ public class Img {
     private String timer;
 
     /**
-     * Convert date to nice view
+     * Convert date to nice view and put into this.timer
      *
      * @param date
      * @return
@@ -32,7 +32,7 @@ public class Img {
     }
 
     /**
-     * Convert date in nice view to LocalDateTime
+     * Convert this.timer in nice view to LocalDateTime
      *
      * @param
      * @return
@@ -40,9 +40,6 @@ public class Img {
     public LocalDateTime makeDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(timer, formatter);
-
         return dateTime;
     }
-
-
 }

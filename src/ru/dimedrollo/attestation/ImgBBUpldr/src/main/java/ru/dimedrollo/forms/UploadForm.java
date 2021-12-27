@@ -12,8 +12,12 @@ public class UploadForm {
     private Long timer;
     private String unit;
 
+    /**
+     * #UploadForm multiply input value timer according to unit
+     * @return
+     */
     public Long convertTimeByUnits() {
-        if (timer == null || timer == 0){
+        if (timer == null ){
             setTimer(1l);
         }
         switch (unit) {

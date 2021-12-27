@@ -9,9 +9,6 @@ public class ImgBbUpldrApplication {
 
     @SneakyThrows
     public static void main(String[] args) {
-
         SpringApplication.run(ImgBbUpldrApplication.class, args);
-
     }
-
 }

@@ -9,6 +9,7 @@ import ru.dimedrollo.forms.UploadForm;
 import ru.dimedrollo.models.Img;
 import ru.dimedrollo.services.ImgServiceImpl;
 
+
 import java.io.IOException;
 import java.util.List;
 
@@ -27,7 +28,11 @@ public class ImgController {
 
     @PostMapping("/addimg")
     public String addImg(UploadForm form) throws IOException {
-        imgService.makeRequest(form.getFile(), form.convertTimeByUnits());
+        try {
+            imgService.makeRequest(form.getFile(), form.convertTimeByUnits());
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
         return "redirect:/images";
     }
 
